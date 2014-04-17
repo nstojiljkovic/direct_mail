@@ -38,8 +38,9 @@
  * @version 	$Id: class.tx_directmail_mailer_engine.php 30331 2010-02-22 22:27:07Z ivankartolo $
  */
 
-
-require_once (PATH_t3lib.'class.t3lib_scbase.php');
+if (version_compare(TYPO3_version,'6.0.0','<')) {
+	require_once (PATH_t3lib.'class.t3lib_scbase.php');
+}
 require_once(t3lib_extMgm::extPath('direct_mail').'res/scripts/class.dmailer.php');
 
 /**

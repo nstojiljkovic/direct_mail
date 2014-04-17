@@ -39,9 +39,11 @@
  * @version 	$Id: class.tx_directmail_dmail.php 30935 2010-03-09 18:12:41Z ivankartolo $
  */
 
-require_once (PATH_t3lib.'class.t3lib_scbase.php');
-require_once (PATH_t3lib.'class.t3lib_tstemplate.php');
-require_once(PATH_t3lib.'class.t3lib_timetrack.php');
+if (version_compare(TYPO3_version,'6.0.0','<')) {
+	require_once (PATH_t3lib.'class.t3lib_scbase.php');
+	require_once (PATH_t3lib.'class.t3lib_tstemplate.php');
+	require_once (PATH_t3lib.'class.t3lib_timetrack.php');
+}
 require_once(t3lib_extMgm::extPath('direct_mail').'res/scripts/class.mailselect.php');
 require_once(t3lib_extMgm::extPath('direct_mail').'res/scripts/class.dmailer.php');
 require_once(t3lib_extMgm::extPath('direct_mail').'res/scripts/class.tx_directmail_static.php');
@@ -87,7 +89,9 @@ class tx_directmail_dmail extends t3lib_SCbase {
 	function init()	{
 		$this->MCONF = $GLOBALS['MCONF'];
 
-		$this->include_once[]=PATH_t3lib.'class.t3lib_tcemain.php';
+		if (version_compare(TYPO3_version,'6.0.0','<')) {
+			$this->include_once[]=PATH_t3lib.'class.t3lib_tcemain.php';
+		}
 
 		parent::init();
 

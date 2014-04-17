@@ -33,7 +33,9 @@
  * @version		$Id: class.tx_directmail_select_categories.php 6012 2007-07-23 12:54:25Z ivankartolo $
  */
 
-require_once (PATH_t3lib.'class.t3lib_page.php');
+if (version_compare(TYPO3_version,'6.0.0','<')) {
+	require_once (PATH_t3lib.'class.t3lib_page.php');
+}
 require_once (t3lib_extMgm::extPath('direct_mail').'res/scripts/class.tx_directmail_static.php');
 
 /**

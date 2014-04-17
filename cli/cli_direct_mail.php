@@ -2,8 +2,10 @@
 
 if (!defined('TYPO3_cliMode'))  die('You cannot run this script directly!');
 
-// Include basis cli class
-require_once(PATH_t3lib.'class.t3lib_cli.php');
+if (version_compare(TYPO3_version,'6.0.0','<')) {
+	// Include basis cli class
+	require_once(PATH_t3lib.'class.t3lib_cli.php');
+}
 
 class direct_mail_cli extends t3lib_cli {
 
@@ -75,7 +77,9 @@ class direct_mail_cli extends t3lib_cli {
 		// Fixing filepermissions
 		t3lib_div::fixPermissions($lockfile);
 
-		require_once(PATH_t3lib.'class.t3lib_cs.php');
+		if (version_compare(TYPO3_version,'6.0.0','<')) {
+			require_once(PATH_t3lib.'class.t3lib_cs.php');
+		}
 		require_once(t3lib_extMgm::extPath('direct_mail').'res/scripts/class.dmailer.php');
 
 		/** @var $htmlmail dmailer */

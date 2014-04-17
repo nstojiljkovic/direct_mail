@@ -39,7 +39,9 @@
  * @version 	$Id: class.tx_directmail_static.php 30936 2010-03-09 18:43:37Z ivankartolo $
  */
 
-include_once(PATH_t3lib.'class.t3lib_pagetree.php');
+if (version_compare(TYPO3_version,'6.0.0','<')) {
+	include_once(PATH_t3lib.'class.t3lib_pagetree.php');
+}
 
 /**
  * Static class.

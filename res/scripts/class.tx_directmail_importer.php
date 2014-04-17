@@ -36,8 +36,10 @@
  * @version		$Id: class.tx_directmail_recipient_list.php 8398 2008-02-26 14:22:00Z ivankartolo $
  */
 
-require_once (PATH_t3lib.'class.t3lib_basicfilefunc.php');
-require_once (PATH_t3lib.'class.t3lib_extfilefunc.php');
+if (version_compare(TYPO3_version,'6.0.0','<')) {
+	require_once (PATH_t3lib.'class.t3lib_basicfilefunc.php');
+	require_once (PATH_t3lib.'class.t3lib_extfilefunc.php');
+}
 
 /**
  * Recipient list module for tx_directmail extension

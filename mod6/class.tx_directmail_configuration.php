@@ -27,8 +27,10 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-require_once (PATH_t3lib.'class.t3lib_scbase.php');
-require_once (PATH_t3lib.'class.t3lib_tstemplate.php');
+if (version_compare(TYPO3_version,'6.0.0','<')) {
+	require_once (PATH_t3lib.'class.t3lib_scbase.php');
+	require_once (PATH_t3lib.'class.t3lib_tstemplate.php');
+}
 require_once(t3lib_extMgm::extPath('direct_mail').'res/scripts/class.tx_directmail_static.php');
 
 /**
@@ -475,8 +477,69 @@ class tx_directmail_configuration extends t3lib_SCbase {
 		if ($GLOBALS["BE_USER"]->doesUserHaveAccess(t3lib_BEfunc::getRecord( 'pages', $this->id), 2)) {
 			$pageTS = t3lib_div::_GP('pageTS');
 			if (is_array($pageTS)) {
-				t3lib_BEfunc::updatePagesTSconfig($this->id,$pageTS,$this->TSconfPrefix);
+				if (version_compare(TYPO3_version,'6.0.0','<')) {
+					t3lib_BEfunc::updatePagesTSconfig($this->id,$pageTS,$this->TSconfPrefix);
+				} else {
+					$this->updatePagesTSconfig($this->id,$pageTS,$this->TSconfPrefix);
+				}
 				header('Location: '.t3lib_div::locationHeaderUrl(t3lib_div::getIndpEnv('REQUEST_URI')));
+			}
+		}
+	}
+
+	/**
+	 * Updates Page TSconfig for a page with $id
+	 * The function seems to take $pageTS as an array with properties and compare the values with those that already exists for the "object string", $TSconfPrefix, for the page, then sets those values which were not present.
+	 * $impParams can be supplied as already known Page TSconfig, otherwise it's calculated.
+	 *
+	 * THIS DOES NOT CHECK ANY PERMISSIONS. SHOULD IT?
+	 * More documentation is needed.
+	 *
+	 * @param $id
+	 * @param $pageTS
+	 * @param $TSconfPrefix
+	 * @param string $impParams
+	 */
+	private function updatePagesTSconfig($id, $pageTS, $TSconfPrefix, $impParams = '') {
+		$id = intval($id);
+		if (is_array($pageTS) && $id > 0) {
+			if (!is_array($impParams)) {
+				$impParams = t3lib_BEfunc::implodeTSParams(t3lib_BEfunc::getPagesTSconfig($id));
+			}
+			$set = array();
+			foreach ($pageTS as $f => $v) {
+				$f = $TSconfPrefix . $f;
+				if ((!isset($impParams[$f]) && trim($v)) || strcmp(trim($impParams[$f]), trim($v))) {
+					$set[$f] = trim($v);
+				}
+			}
+			if (count($set)) {
+				// Get page record and TS config lines
+				$pRec = t3lib_BEfunc::getRecord('pages', $id);
+				$TSlines = explode(LF, $pRec['TSconfig']);
+				$TSlines = array_reverse($TSlines);
+				// Reset the set of changes.
+				foreach ($set as $f => $v) {
+					$inserted = 0;
+					foreach ($TSlines as $ki => $kv) {
+						if (substr($kv, 0, strlen($f) + 1) == $f . '=') {
+							$TSlines[$ki] = $f . '=' . $v;
+							$inserted = 1;
+							break;
+						}
+					}
+					if (!$inserted) {
+						$TSlines = array_reverse($TSlines);
+						$TSlines[] = $f . '=' . $v;
+						$TSlines = array_reverse($TSlines);
+					}
+				}
+				$TSlines = array_reverse($TSlines);
+
+				// store those changes
+				$TSconf = implode(LF, $TSlines);
+
+				$GLOBALS['TYPO3_DB']->exec_UPDATEquery('pages', 'uid=' . intval($id), array('TSconfig' => $TSconf));
 			}
 		}
 	}

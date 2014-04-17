@@ -85,7 +85,9 @@
  * Every minute the cronjob checks if there are mails in the queue.
  * If there are mails, 100 is sent at a time per job.
  */
-require_once(PATH_t3lib.'class.t3lib_befunc.php');
+if (version_compare(TYPO3_version,'6.0.0','<')) {
+	require_once(PATH_t3lib.'class.t3lib_befunc.php');
+}
 
 /**
  * Class, doing the sending of Direct-mails, eg. through a cron-job

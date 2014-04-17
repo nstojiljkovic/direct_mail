@@ -39,7 +39,9 @@
  * @version		$Id: class.tx_directmail_recipient_list.php 30331 2010-02-22 22:27:07Z ivankartolo $
  */
 
-require_once (PATH_t3lib.'class.t3lib_scbase.php');
+if (version_compare(TYPO3_version,'6.0.0','<')) {
+	require_once (PATH_t3lib.'class.t3lib_scbase.php');
+}
 require_once(t3lib_extMgm::extPath('direct_mail').'res/scripts/class.mailselect.php');
 require_once(t3lib_extMgm::extPath('direct_mail').'res/scripts/class.tx_directmail_static.php');
 require_once (t3lib_extMgm::extPath('direct_mail').'res/scripts/class.tx_directmail_importer.php');
@@ -87,7 +89,9 @@ class tx_directmail_recipient_list extends t3lib_SCbase {
 	function init()	{
 		$this->MCONF = $GLOBALS['MCONF'];
 
-		$this->include_once[]=PATH_t3lib.'class.t3lib_tcemain.php';
+		if (version_compare(TYPO3_version,'6.0.0','<')) {
+			$this->include_once[]=PATH_t3lib.'class.t3lib_tcemain.php';
+		}
 
 		parent::init();
 

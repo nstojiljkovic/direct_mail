@@ -35,7 +35,9 @@
  * @version		$Id: class.readmail.php 6012 2007-07-23 12:54:25Z ivankartolo $
  */
 
-require_once (PATH_t3lib.'class.t3lib_readmail.php');
+if (version_compare(TYPO3_version,'6.0.0','<')) {
+	require_once (PATH_t3lib.'class.t3lib_readmail.php');
+}
 
 /**
  * Extension of the t3lib_readmail class for the purposes of the Direct mail extension.
