@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 1999-2003 Kasper Sk�rh�j (kasper@typo3.com)
+*  (c) 1999-2003 Kasper Skårhøj (kasper@typo3.com)
 *  (c) 2003-2006 Stanislas Rolland <stanislas.rolland(arobas)fructifor.ca>
 *  All rights reserved
 *
@@ -27,7 +27,7 @@
 ***************************************************************/
 
 /**
- * @author		Kasper Sk�rh�j <kasper@typo3.com>
+ * @author		Kasper Skårhøj <kasper@typo3.com>
  * @author		Stanislas Rolland <stanislas.rolland(arobas)fructifor.ca>
  *
  * @package 	TYPO3

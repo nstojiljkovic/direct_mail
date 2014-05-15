@@ -26,7 +26,7 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 /**
- * @author		Kasper Sk�rh�j <kasperYYYY>@typo3.com>
+ * @author		Kasper Skårhøj <kasperYYYY>@typo3.com>
  * @author		Thorsten Kahler <thorsten.kahler@dkd.de>
  *
  * @package 	TYPO3

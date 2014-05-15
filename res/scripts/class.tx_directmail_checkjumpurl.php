@@ -27,7 +27,7 @@
  ***************************************************************/
 
 /**
- * @author		Kasper Sk�rh�j <kasperYYYY>@typo3.com>
+ * @author		Kasper Skårhøj <kasperYYYY>@typo3.com>
  * @author		Stanislas Rolland <stanislas.rolland(arobas)fructifor.ca>
  *
  * @package 	TYPO3
