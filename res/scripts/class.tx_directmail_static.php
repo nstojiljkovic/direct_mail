@@ -875,21 +875,21 @@ class tx_directmail_static {
 		$result = FALSE;
 
 		$newRecord = array(
-			'type'					=> 0,
-			'pid'					=> $parameters['pid'],
-			'from_email'			=> $parameters['from_email'],
-			'from_name'				=> $parameters['from_name'],
-			'replyto_email'			=> $parameters['replyto_email'],
-			'replyto_name'			=> $parameters['replyto_name'],
-			'return_path'			=> $parameters['return_path'],
-			'priority'				=> $parameters['priority'],
-			'use_domain'			=> $parameters['use_domain'],
-			'use_rdct'				=> $parameters['use_rdct'],
-			'long_link_mode'		=> $parameters['long_link_mode'],
-			'organisation'			=> $parameters['organisation'],
-			'authcode_fieldList'	=> $parameters['authcode_fieldList'],
-			'sendOptions'			=> $GLOBALS['TCA']['sys_dmail']['columns']['sendOptions']['config']['default'],
-			'long_link_rdct_url'	=> self::getUrlBase($parameters['use_domain'])
+            'type'					=> 0,
+            'pid'					=> intval($parameters['pid']),
+            'from_email'			=> $parameters['from_email'],
+            'from_name'				=> $parameters['from_name'],
+            'replyto_email'			=> $parameters['replyto_email'],
+            'replyto_name'			=> $parameters['replyto_name'],
+            'return_path'			=> $parameters['return_path'],
+            'priority'				=> intval($parameters['priority']),
+            'use_domain'			=> intval($parameters['use_domain']),
+            'use_rdct'				=> intval($parameters['use_rdct']),
+            'long_link_mode'		=> intval($parameters['long_link_mode']),
+            'organisation'			=> $parameters['organisation'],
+            'authcode_fieldList'	=> $parameters['authcode_fieldList'],
+            'sendOptions'			=> $GLOBALS['TCA']['sys_dmail']['columns']['sendOptions']['config']['default'],
+            'long_link_rdct_url'	=> self::getUrlBase($parameters['use_domain'])
 		);
 
 
